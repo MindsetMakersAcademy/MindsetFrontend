@@ -1,24 +1,51 @@
-import Image from "next/image";
+import { ArrowRight, GitBranch } from "lucide-react";
+
 import FloatSymbols from "./floatSymbols";
-import HeroContent from "./content";
+import { Button } from "@/components/ui/button";
+import { getLang } from "@/lib/i18n";
+import { getDictionary } from "@/src/dictionaries";
 
-export function Hero() {
+export async function Hero() {
+  const lang = getLang();
+  const dict = await getDictionary(lang);
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-linear-to-br from-primary via-secondary to-secondary">
-      <div className="absolute inset-0 z-0">
-        <Image
-          fill
-          priority
-          src="/landing/background.webp"
-          className="object-cover opacity-40"
-          alt="Mathematical formulas background"
-        />
-      </div>
-
+    <section className="relative overflow-hidden border-b border-border">
       <FloatSymbols />
-      <HeroContent />
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent z-10" />
+      <div className="container mx-auto px-4 py-20 sm:px-6 sm:py-32 lg:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          {/* Badge */}
+          <Button
+            variant="ghost"
+            className="mb-8 rounded-full border border-secondary/50 backdrop-blur-sm cursor-pointer
+            hover:bg-linear-to-r hover:from-secondary/10 hover:via-purple-400/20 hover:to-secondary/10 transition-all animate-gradient
+            "
+          >
+            <GitBranch className="text-secondary" />
+            <span>Announcing our latest features</span>
+            <ArrowRight />
+          </Button>
+
+          {/* Headline */}
+          <h1 className="mb-6 text-3xl font-medium">{dict.hero_headline}</h1>
+
+          {/* Subheadline */}
+          <p className="mx-auto mb-10 max-w-2xl text-muted-foreground">{dict.hero_description}</p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:gap-4">
+              <a href="https://t.me/azibom" target="_blank">
+                <Button size="lg" variant="outline" className="mb-8 rounded-full backdrop-blur-sm cursor-pointer">
+                  {dict.hero_telegram_cta}
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
