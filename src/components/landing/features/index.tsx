@@ -1,33 +1,37 @@
-import { GitMerge, Shield, Zap } from "lucide-react";
+import { Atom, BookOpen, GitMerge, Shield, Zap } from "lucide-react";
+
 import FeatureCard from "./card";
+import { getLang } from "@/lib/i18n";
+import { getDictionary } from "@/src/dictionaries";
 
-const features = [
-  {
-    Icon: GitMerge,
-    title: "Collaborative coding",
-    description: "Work together seamlessly with powerful version control and code review tools.",
-    image: "/landing/background.webp",
-    iconColor: "text-purple-400",
-  },
-  {
-    Icon: Zap,
-    title: "Lightning-fast workflows",
-    description: "Automate your build, test, and deployment processes with integrated CI/CD.",
-    image: "/landing/background.webp",
-    gradient: "from-blue-500/20 to-cyan-500/20",
-    iconColor: "text-blue-400",
-  },
-  {
-    Icon: Shield,
-    title: "Security first",
-    description: "Keep your code secure with advanced security features and automated vulnerability detection.",
-    image: "/landing/background.webp",
-    gradient: "from-green-500/20 to-emerald-500/20",
-    iconColor: "text-green-400",
-  },
-];
+export default async function Features() {
+  const lang = getLang();
+  const dict = await getDictionary(lang);
 
-export default function Features() {
+  const features = [
+    {
+      Icon: GitMerge,
+      title: dict.courses_and_workshops,
+      description: "Work together seamlessly with powerful version control and code review tools.",
+      image: "/landing/courses-cover.webp",
+      iconColor: "text-purple-400",
+    },
+    {
+      Icon: BookOpen,
+      title: dict.reading_courses,
+      description: "Automate your build, test, and deployment processes with integrated CI/CD.",
+      image: "/landing/reading-courses-cover.webp",
+      iconColor: "text-blue-400",
+    },
+    {
+      Icon: Atom,
+      title: dict.articles,
+      description: "Keep your code secure with advanced security features and automated vulnerability detection.",
+      image: "/landing/article-cover.webp",
+      iconColor: "text-green-400",
+    },
+  ];
+
   return (
     <section className="border-b border-border py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl space-y-20">

@@ -1,6 +1,7 @@
 import { usePathname } from "next/navigation";
 
 import { getDictionary } from "@/src/dictionaries";
+import type { langTypes, Dictionary } from "@/src/types/common";
 
 export default async function Trans({ children }: { children: keyof Dictionary }) {
   const pathname = usePathname();

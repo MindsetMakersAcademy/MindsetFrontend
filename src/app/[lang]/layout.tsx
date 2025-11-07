@@ -7,6 +7,7 @@ import Navigation from "@/components/landing/navigation";
 
 import { setLang } from "@/lib/i18n";
 import { getDictionary } from "@/src/dictionaries";
+import type { langTypes } from "@/src/types/common";
 
 export async function generateStaticParams() {
   return [{ lang: "fa" }];
@@ -22,8 +23,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: langTypes }> }): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang: rawLang } = await params;
+  const lang: langTypes = rawLang === "fa" ? "fa" : "fa";
   const dict = await getDictionary(lang);
   return {
     title: dict.app_title,
@@ -58,14 +60,16 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: langTypes }>;
+  params: Promise<{ lang: string }>;
 }>) {
-  const lang = (await params).lang;
+  const rawLang = (await params).lang;
+  const lang: langTypes = rawLang === "fa" ? "fa" : "fa";
   setLang(lang);
+
   return (
-    <html lang={lang} className="dark">
+    <html lang={lang} dir={lang === "fa" ? "rtl" : "ltr"} className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navigation />
+        {/* <Navigation /> */}
         {children}
       </body>
     </html>

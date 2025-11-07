@@ -22,9 +22,9 @@ export default async function Hero() {
             hover:bg-linear-to-r hover:from-secondary/10 hover:via-purple-400/20 hover:to-secondary/10 transition-all animate-gradient
             "
         >
-          <GitBranch className="text-secondary" />
-          <span className="text-sm">{dict.register_for_course}</span>
           <ArrowRight />
+          <span className="text-sm">{dict.register_for_course}</span>
+          <GitBranch className="text-secondary" />
         </Button>
 
         {/* Headline */}
